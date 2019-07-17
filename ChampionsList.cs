@@ -1,11 +1,13 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using System.Linq;
+
+
 public class ChampionsList : MonoBehaviour
 {
     public List<Champion> champions;
     public Champion selectedChamp;
+    public string selectedName;
+
     //      Declaring Champion Origins
     string imp = "Imperial";
     string dem = "Demon";
@@ -22,8 +24,6 @@ public class ChampionsList : MonoBehaviour
     string yor = "Yordle";
 
     //      Declaring Champion Classes
-
-
     string ass = "Assasin";
     string bla = "Blademaster";
     string bra = "Brawler";
@@ -96,11 +96,14 @@ public class ChampionsList : MonoBehaviour
             new Champion("Yasuo", 5, exi, null, bla, null)
         };
     }
+
     private void ChampionSelected() //      Find Synergies for selected Champion
     {
-        Champion selectedChamp = champions.Find(x => x.champName == "Miss Fortune"); //     Placeholder for assigning Selected Champion
-            if (selectedChamp.champOrigin != "Robot") //        Stops logging champ.Origin of "Robot" Origin, as there is only one "Robot"
+        Champion selectedChamp = champions.Find(x => x.champName == selectedName); //     Placeholder for assigning Selected Champion
+
+        if (selectedChamp.champOrigin != "Robot") //        Stops logging champ.Origin of "Robot" Origin, as there is only one "Robot"
             Debug.Log(selectedChamp.champOrigin);
+
         foreach (Champion temp in champions)
         {
 
@@ -116,7 +119,8 @@ public class ChampionsList : MonoBehaviour
                 }
             }
         }
-            if (selectedChamp.champOrigin2 != null) Debug.Log(selectedChamp.champOrigin2);
+            if (selectedChamp.champOrigin2 != null) Debug.Log(selectedChamp.champOrigin2); //       Stops logging of null if there is no Origin2
+
             foreach (Champion temp in champions)
             {
                 //      Get Origin2 Synergie if not null
@@ -132,6 +136,7 @@ public class ChampionsList : MonoBehaviour
                 }
             }
             Debug.Log(selectedChamp.champClass);
+
         foreach (Champion temp in champions)
         {
             //      Get Class Synergie
@@ -146,7 +151,8 @@ public class ChampionsList : MonoBehaviour
                 }
             }
         }
-            if (selectedChamp.champClass2 != null) Debug.Log(selectedChamp.champClass2);
+            if (selectedChamp.champClass2 != null) Debug.Log(selectedChamp.champClass2); //     Stops logging of null if there is no Class2
+
         foreach (Champion temp in champions)
         {
             //      Get Class2 Synergie if not null
@@ -164,6 +170,9 @@ public class ChampionsList : MonoBehaviour
     }
     private void Update() //        On Champion Selection
     {
-        if (Input.GetKeyDown(KeyCode.I)) ChampionSelected();
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            ChampionSelected(); //     Placeholder for Selecting Champion
+        }
     }
 }
