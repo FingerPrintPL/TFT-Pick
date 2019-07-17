@@ -2,10 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
-[System.Serializable]
 public class ChampionsList : MonoBehaviour
 {
-    [SerializeField]
     public List<Champion> champions;
     public Champion selectedChamp;
     //      Declaring Champion Origins
