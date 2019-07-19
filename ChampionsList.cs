@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using System.Collections;
 
 
 public class ChampionsList : MonoBehaviour
@@ -7,7 +8,6 @@ public class ChampionsList : MonoBehaviour
     public List<Champion> champions;
     public Champion selectedChamp;
     public string selectedName;
-
     //      Declaring Champion Origins
     string imp = "Imperial";
     string dem = "Demon";
@@ -38,7 +38,6 @@ public class ChampionsList : MonoBehaviour
 
     void Start()
     {
-
         //      Creating List of Champions
 
         champions = new List<Champion>(51)
@@ -70,7 +69,7 @@ public class ChampionsList : MonoBehaviour
             new Champion("Aatrox", 3, dem, null, bla, null),
             new Champion("Ashe", 3, gla, null, ran, null),
             new Champion("Evelynn", 3, dem, null, ass, null),
-            new Champion("Gangplanck", 3, pir, null, gun, bla),
+            new Champion("Gangplank", 3, pir, null, gun, bla),
             new Champion("Katarina", 3, imp, null, ass, null),
             new Champion("Kennen", 3, nin, yor, ele, null),
             new Champion("Morgana", 3, dem, null, sor, null),
