@@ -6,7 +6,7 @@ public class ChampionBox : MonoBehaviour
 {
     public GameObject champBox;
     Sprite mySprite;
-    string name;
+    string spriteName;
     public GameObject box;
     float x;
     float y;
@@ -30,11 +30,11 @@ public class ChampionBox : MonoBehaviour
             GameObject camera = GameObject.Find("Main Camera");
             ChampionsList list = camera.GetComponent<ChampionsList>();
             List<Champion> champs = list.champions;
-            name = champs[i].champName;
-            mySprite = Resources.Load<Sprite>("ChampionsIcons/" + name);
+            spriteName = champs[i].champName;
+            mySprite = Resources.Load<Sprite>("ChampionsIcons/" + spriteName);
             box.GetComponent<SpriteRenderer>().sprite = mySprite;
             var newIcon = (GameObject)Instantiate(box, new Vector3(x, y, 0), Quaternion.identity);
-            newIcon.name = name; //     Naming instantiated GameObjects with Champion name
+            newIcon.name = spriteName; //     Naming instantiated GameObjects with Champion name
             x += 0.975f;
 
         }
