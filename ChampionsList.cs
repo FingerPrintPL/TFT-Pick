@@ -106,6 +106,9 @@ public class ChampionsList : MonoBehaviour
 
     public void ChampionSelected() //      Find Synergies for selected Champion
     {
+        GameObject[] moreToDest = GameObject.FindGameObjectsWithTag("More");
+        foreach (GameObject more in moreToDest)
+            Destroy(more);
         selectedName = SelectedName;
         Champion selectedChamp = champions.Find(x => x.champName == selectedName); //    Assigning Selected Champion
         x = -1.95f;
@@ -117,44 +120,43 @@ public class ChampionsList : MonoBehaviour
         TextMeshProUGUI mTextNames = Names.GetComponent<TextMeshProUGUI>();
         TextMeshProUGUI mTextAttributes = Attributes.GetComponent<TextMeshProUGUI>();
         mTextNames.text = selectedName;
-        (Instantiate(Names, new Vector3(x, y + 0.7f, 0), Quaternion.identity) as GameObject).transform.parent = canvas.transform;
+        (Instantiate(Names, new Vector3(x, y + 0.7f, 0), Quaternion.identity) as GameObject).transform.SetParent(canvas.transform);
         mTextAttributes.text = "Synergy" + System.Environment.NewLine + "for:";
-        (Instantiate(Attributes, new Vector3(x, y + 1.1f, 0), Quaternion.identity) as GameObject).transform.parent = canvas.transform;
+        (Instantiate(Attributes, new Vector3(x, y + 1.1f, 0), Quaternion.identity) as GameObject).transform.SetParent(canvas.transform);
         if (selectedChamp.champAtt1 != rob && selectedChamp.champAtt1 != exi) //        Stops logging champAtt1 of "Robot" Attribute, as there is only one "Robot"
         {
-            if (selectedChamp.champAtt3 != null) x = -0.65f;
-            else x = -0.4f;
             mTextAttributes.text = selectedChamp.champAtt1;
-            (Instantiate(Attributes, new Vector3(x, y + 1.1f, 0), Quaternion.identity) as GameObject).transform.parent = canvas.transform;
+            (Instantiate(Attributes, new Vector3(0, y -0.7f, 0), Quaternion.identity) as GameObject).transform.SetParent(canvas.transform);
             Debug.Log(selectedChamp.champAtt1);
         }
-
+        y -= 1.7f;
         foreach (Champion temp in champions)
         {
 
             //      Get Origin Synergie
-
+            
             if (selectedChamp.champAtt1 != rob && temp.champName != selectedName && (temp.champAtt1 == selectedChamp.champAtt1 || temp.champAtt2 == selectedChamp.champAtt1 || temp.champAtt3 == selectedChamp.champAtt1))
-            {                   
-                    if (selectedChamp.champAtt3 != null) x = -0.65f;
-                    else x = -0.4f;
-                    mySprite = Resources.Load<Sprite>("ChampionsIcons/" + temp.champName);
-                    box.GetComponent<SpriteRenderer>().sprite = mySprite;
-                    var newIcons = (GameObject)Instantiate(box, new Vector3(x, y, 0), Quaternion.identity);
-                    newIcon.name = temp.champName;
-                    mTextNames.text = temp.champName;
-                    (Instantiate(Names, new Vector3(x, y + 0.7f, 0), Quaternion.identity) as GameObject).transform.parent = canvas.transform;
-                    Debug.Log(temp.champName);
+            {
+                if (x > 1.95f)
+                {
+                    x = -1.95f;
                     y -= 1.4f;
+                }
+                mySprite = Resources.Load<Sprite>("ChampionsIcons/" + temp.champName);
+                box.GetComponent<SpriteRenderer>().sprite = mySprite;
+                var newIcons = (GameObject)Instantiate(box, new Vector3(x, y, 0), Quaternion.identity);
+                newIcon.name = temp.champName;
+                mTextNames.text = temp.champName;
+                (Instantiate(Names, new Vector3(x, y + 0.7f, 0), Quaternion.identity) as GameObject).transform.SetParent(canvas.transform);
+                Debug.Log(temp.champName);
+                x += 0.95f;
                     //      Display Champion Attribute1 Synergies
             }
         }
-        if (selectedChamp.champAtt1 == rob || selectedChamp.champAtt1 == exi) x = -0.4f;
-        else if (selectedChamp.champAtt3 != null) x = 0.65f;
-        else x = 1.15f;
-        y = 3.45f;
+        y -= 1.7f;
+        x = -1.95f;
         mTextAttributes.text = selectedChamp.champAtt2;
-        (Instantiate(Attributes, new Vector3(x, y + 1.1f, 0), Quaternion.identity) as GameObject).transform.parent = canvas.transform;
+        (Instantiate(Attributes, new Vector3(0, y + 1f, 0), Quaternion.identity) as GameObject).transform.SetParent(canvas.transform);
         Debug.Log(selectedChamp.champAtt2);
         foreach (Champion temp in champions)
             {
@@ -162,28 +164,29 @@ public class ChampionsList : MonoBehaviour
 
                 if (temp.champName != selectedChamp.champName && (temp.champAtt1 == selectedChamp.champAtt2 || temp.champAtt2 == selectedChamp.champAtt2 || temp.champAtt3 == selectedChamp.champAtt2))
                 {
-                     if (selectedChamp.champAtt1 == rob || selectedChamp.champAtt1 == exi) x = -0.4f;
-                     else if (selectedChamp.champAtt3 != null) x = 0.65f;
-                     else x = 1.15f;
+                    if (x > 1.95f)
+                    {
+                         x = -1.95f;
+                         y -= 1.4f;
+                    }
                      mySprite = Resources.Load<Sprite>("ChampionsIcons/" + temp.champName);
                      box.GetComponent<SpriteRenderer>().sprite = mySprite;
                      var newIcons = (GameObject)Instantiate(box, new Vector3(x, y, 0), Quaternion.identity);
                      newIcon.name = temp.champName;
                      mTextNames.text = temp.champName;
-                     (Instantiate(Names, new Vector3(x, y + 0.7f, 0), Quaternion.identity) as GameObject).transform.parent = canvas.transform;
+                     (Instantiate(Names, new Vector3(x, y + 0.7f, 0), Quaternion.identity) as GameObject).transform.SetParent(canvas.transform);
                      Debug.Log(temp.champName);
-                     y -= 1.4f;
+                     x += 0.95f;
                      Debug.Log(temp.champName);
-                        //      Display Champion Origin2 Synergies
                 }
             }
+        y -= 1.7f;
+        x = -1.95f;
         if (selectedChamp.champAtt3 != null)
         {
             Debug.Log(selectedChamp.champAtt3);
-            y = 3.45f;
-            x = 1.75f;
             mTextAttributes.text = selectedChamp.champAtt3;
-            (Instantiate(Attributes, new Vector3(x, y + 1.1f, 0), Quaternion.identity) as GameObject).transform.parent = canvas.transform;
+            (Instantiate(Attributes, new Vector3(0, y + 1f, 0), Quaternion.identity) as GameObject).transform.SetParent(canvas.transform);
         }
         foreach (Champion temp in champions)
         {
@@ -191,32 +194,16 @@ public class ChampionsList : MonoBehaviour
 
             if (selectedChamp.champAtt3 != null && temp.champName != selectedChamp.champName && (temp.champAtt1 == selectedChamp.champAtt3 || temp.champAtt2 == selectedChamp.champAtt3 || temp.champAtt3 == selectedChamp.champAtt3))
             {
-                /* if (selectedChamp.champAtt1 == rob || selectedChamp.champAtt1 == exi) x = -0.4f;
-                 else if (selectedChamp.champAtt3 != null) x = 0.77f;
-                 else x = 1.15f; */
-                x = 1.95f;
                 mySprite = Resources.Load<Sprite>("ChampionsIcons/" + temp.champName);
                 box.GetComponent<SpriteRenderer>().sprite = mySprite;
                 var newIcons = (GameObject)Instantiate(box, new Vector3(x, y, 0), Quaternion.identity);
                 newIcon.name = temp.champName;
                 mTextNames.text = temp.champName;
-                (Instantiate(Names, new Vector3(x, y + 0.7f, 0), Quaternion.identity) as GameObject).transform.parent = canvas.transform;
-                Debug.Log(temp.champName);
-                y -= 1.4f;
-                Debug.Log(temp.champName);
+                (Instantiate(Names, new Vector3(x, y + 0.7f, 0), Quaternion.identity) as GameObject).transform.SetParent(canvas.transform);
+                x += 0.95f;
                 Debug.Log(temp.champName);
                     //      Display Champion Class Synergies
             }
-        }
-    }
-
-    private void Update() //        On Champion Selection
-    {
-        if (Input.GetKeyDown(KeyCode.I))
-        {
-            selectedName = SelectedName;
-            Debug.Log(selectedName);
-            ChampionSelected(); //     Placeholder for Selecting Champion
         }
     }
 }

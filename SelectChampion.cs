@@ -5,16 +5,14 @@ using UnityEngine;
 public class SelectChampion : MonoBehaviour
 {
     private string spriteName;
-    public GameObject icon;
     // Start is called before the first frame update
     void Start()
     {
-
     }
 
-    private void OnMouseDown()
+    private void OnMouseUp()
     {
-        spriteName = icon.GetComponent<SpriteRenderer>().sprite.name;
+        spriteName = GetComponent<SpriteRenderer>().sprite.name;
         GameObject camera = GameObject.Find("Main Camera");
         ChampionsList list = camera.GetComponent<ChampionsList>();
         list.SelectedName = spriteName;
